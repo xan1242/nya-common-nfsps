@@ -112,9 +112,11 @@ namespace NyaHooks {
 	}
 
 	namespace SkipFEFixes {
+		bool bForceSkipFECar = false;
+
 		auto GetVehicleKey_orig = (uint32_t(__thiscall*)(void*))nullptr;
 		uint32_t __thiscall GetVehicleKeyHooked(void* a1) {
-			if (!SkipFE) return GetVehicleKey_orig(a1);
+			if (!SkipFE && !bForceSkipFECar) return GetVehicleKey_orig(a1);
 			return Attrib::StringHash32(SkipFEPlayerCar);
 		}
 

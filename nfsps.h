@@ -19,7 +19,18 @@ enum BLUEPRINT_NUMBER : uint32_t {
 	BLUEPRINT_MAX,
 };
 
+typedef uint32_t HSIMABLE__;
+typedef uint32_t HCAUSE__;
+typedef HSIMABLE__* HSIMABLE;
+typedef HCAUSE__* HCAUSE;
+
+namespace Hermes {
+	typedef uint32_t _h_HHANDLER__;
+}
+
+#include "types/eastl.h"
 #include "types/bNode.h"
+#include "types/UCOM.h"
 #include "types/UMath.h"
 #include "types/Attrib.h"
 #include "types/Physics.h"
@@ -30,8 +41,19 @@ enum BLUEPRINT_NUMBER : uint32_t {
 #include "types/FeGarageMain.h"
 #include "types/UserProfile.h"
 #include "types/GameFlowManager.h"
-#include "types/RaceParameters.h"
 #include "types/TrackInfo.h"
+#include "types/IAttachable.h"
+#include "types/ISimable.h"
+#include "types/IVehicleCache.h"
+#include "types/ISelectionSet.h"
+#include "types/DriftScoring.h"
+#include "types/GTrigger.h"
+#include "types/GRace.h"
+#include "types/GRaceParameters.h"
+#include "types/GRaceDatabase.h"
+#include "types/GRaceStatus.h"
+#include "types/RaceParameters.h"
+#include "types/GProStreetGame.h"
 
 class RaceStarter {
 public:

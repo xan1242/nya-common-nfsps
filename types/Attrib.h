@@ -1,4 +1,5 @@
 namespace Attrib {
+	class Class;
 	class Vault;
 
 	class Collection {

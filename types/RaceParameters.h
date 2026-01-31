@@ -24,16 +24,6 @@ enum eOpponentStrength {
 	NUM_OPPONENT_STRENGTHS = 3,
 };
 
-namespace GRace {
-	enum Context {
-		kRaceContext_QuickRace = 0x0,
-		kRaceContext_TimeTrial = 0x1,
-		kRaceContext_Online = 0x2,
-		kRaceContext_Career = 0x3,
-		kRaceContext_Count = 0x4,
-	};
-}
-
 class Timer {
 public:
 	int PackedTime;
