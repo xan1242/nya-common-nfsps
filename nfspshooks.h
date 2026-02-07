@@ -2,14 +2,19 @@
 
 namespace NyaHooks {
 	namespace D3DEndSceneHook {
+		std::vector<void(*)()> aPreFunctions;
 		std::vector<void(*)()> aFunctions;
-		
+
 		auto OrigFunction = (uint32_t(__thiscall*)(void*))nullptr;
 		uint32_t __thiscall HookedFunction(void* a1) {
+			for (auto& func : aPreFunctions) {
+				func();
+			}
+			auto out = OrigFunction(a1);
 			for (auto& func : aFunctions) {
 				func();
 			}
-			return OrigFunction(a1);
+			return out;
 		}
 		
 		void Init() {
@@ -91,6 +96,26 @@ namespace NyaHooks {
 			if (OrigFunction) return;
 			OrigFunction = (LRESULT(__stdcall*)(HWND, UINT, WPARAM, LPARAM))(*(uintptr_t*)0x70E2B4);
 			NyaHookLib::Patch(0x70E2B4, &HookedFunction);
+		}
+	}
+	namespace LateInitHook {
+		std::vector<void(*)()> aPreFunctions;
+		std::vector<void(*)()> aFunctions;
+
+		auto OrigFunction = (void(*)(int, char**))nullptr;
+		void HookedFunction(int a1, char** a2) {
+			for (auto& func : aPreFunctions) {
+				func();
+			}
+			OrigFunction(a1, a2);
+			for (auto& func : aFunctions) {
+				func();
+			}
+		}
+
+		void Init() {
+			if (OrigFunction) return;
+			OrigFunction = (void(*)(int, char**))NyaHookLib::PatchRelative(NyaHookLib::CALL, 0x6DBAD4, &HookedFunction);
 		}
 	}
 	

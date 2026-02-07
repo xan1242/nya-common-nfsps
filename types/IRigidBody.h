@@ -1,0 +1,55 @@
+class WCollider;
+
+class IRigidBody : public UCOM::IUnknown {
+public:
+	static inline uint32_t IHandle = 0x402280;
+
+	virtual ISimable *GetOwner();
+	virtual bool IsSimple();
+	virtual int GetIndex();
+	virtual SimableType GetSimableType();
+	virtual float GetRadius();
+	virtual float GetMass();
+	virtual float GetOOMass();
+	virtual const UMath::Vector3 *GetPosition();
+	virtual const UMath::Vector3 *GetLinearVelocity();
+	virtual const UMath::Vector3 *GetAngularVelocity();
+	virtual float GetSpeed();
+	virtual float GetSpeedXZ();
+	virtual void GetForwardVector(UMath::Vector3 *);
+	virtual void GetRightVector(UMath::Vector3 *);
+	virtual void GetUpVector(UMath::Vector3 *);
+	virtual void GetMatrix4(UMath::Matrix4 *);
+	virtual const UMath::Vector4 *GetOrientation();
+	virtual UMath::Vector3 *GetDimension(UMath::Vector3 *result);
+	virtual void _GetDimension(UMath::Vector3 *);
+	virtual unsigned int GetTriggerFlags();
+	virtual const WCollider *GetWCollider();
+	virtual void GetPointVelocity(const UMath::Vector3 *, UMath::Vector3 *);
+	virtual void SetPosition(const UMath::Vector3 *);
+	virtual void SetLinearVelocity(const UMath::Vector3 *);
+	virtual void SetAngularVelocity(const UMath::Vector3 *);
+	virtual void SetRadius(float);
+	virtual void SetMass(float);
+	virtual void SetOrientation(const UMath::Matrix4 *);
+	virtual void SetOrientation(const UMath::Vector4 *);
+	virtual void ModifyXPos(float);
+	virtual void ModifyYPos(float);
+	virtual void ModifyZPos(float);
+	virtual bool IsIntegrating();
+	virtual void DisableIntegration();
+	virtual void EnableIntegration();
+	virtual bool IsActive();
+	virtual void SetActive(bool);
+	virtual void Resolve(const UMath::Vector3 *, const UMath::Vector3 *);
+	virtual void ResolveForce(const UMath::Vector3 *, const UMath::Vector3 *);
+	virtual void ResolveForce(const UMath::Vector3 *);
+	virtual void ResolveTorque(const UMath::Vector3 *, const UMath::Vector3 *);
+	virtual void ResolveTorque(const UMath::Vector3 *);
+	virtual void PlaceObject(const UMath::Matrix4 *, const UMath::Vector3 *);
+	virtual void Accelerate(const UMath::Vector3 *, float);
+	virtual void ConvertLocalToWorld(UMath::Vector3 *, bool);
+	virtual void ConvertWorldToLocal(UMath::Vector3 *, bool);
+	virtual void Debug();
+	virtual bool IsTumbling();
+};

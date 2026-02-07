@@ -66,6 +66,10 @@ public:
 	GVault* mRegionVault;
 
 	static inline auto GetIsLoopingRace = (bool(__thiscall*)(GRaceParameters*))0x686180;
+	static inline auto GetNumRaceLaps = (int(__thiscall*)(GRaceParameters*))0x657CF0;
+	static inline auto GetNumLaps = (int(__thiscall*)(GRaceParameters*))0x657CF0;
+	static inline auto GetRaceType = (GRace::Type(__thiscall*)(GRaceParameters*))0x682590;
+	static inline auto GetEventID = (const char*(__thiscall*)(GRaceParameters*))0x657C30;
 
 	virtual void _vf0();
 };

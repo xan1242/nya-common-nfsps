@@ -370,15 +370,10 @@ public:
 	float mMultiClassSecondGroupDelay;
 	bool(*mRankingFuncs[11])(const GRacerInfo*, const GRacerInfo*);
 	GRace::Type mRecentRaceType;
+
+	static inline auto& fObj = *(GRaceStatus**)0xAB9D7C;
+
+	static inline auto GetRacerInfo = (GRacerInfo*(__thiscall*)(GRaceStatus*, ISimable*))0x671EC0;
 };
-//static_assert(sizeof(GRaceStatus) == 0x4730);
-//static_assert(offsetof(GRaceStatus, mPlayMode) == 0x2E5C);
-//static_assert(offsetof(GRaceStatus, mBonusTime) == 0x2E7C);
-//static_assert(offsetof(GRaceStatus, mQueueBinChange) == 0x2E94);
-//static_assert(offsetof(GRaceStatus, mCheckpoints) == 0x2EA4);
-//static_assert(offsetof(GRaceStatus, mCaluclatedAdaptiveGain) == 0x45B4);
-//static_assert(offsetof(GRaceStatus, mVehicleCacheLocked) == 0x4670);
-//static_assert(offsetof(GRaceStatus, mFreeRoamTimer) == 0x4698);
-//static_assert(offsetof(GRaceStatus, mRecentRaceType) == 0x472C);
 static_assert(sizeof(GRaceStatus) == 0x45D0);
 static_assert(offsetof(GRaceStatus, mRacerInfo) == 0x20);

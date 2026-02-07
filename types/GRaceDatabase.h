@@ -23,4 +23,6 @@ public:
 	static inline auto AllocCustomRace = (GRaceCustom*(__thiscall*)(GRaceDatabase*, GRaceParameters*))0x697700;
 	static inline auto FreeCustomRace = (GRaceCustom*(__thiscall*)(GRaceDatabase*, GRaceParameters*))0x65EBB0;
 	static inline auto SetStartupRace = (void(__thiscall*)(GRaceDatabase*, GRaceCustom*, GRace::Context))0x657BC0;
+
+	static GRaceCustom* GetStartupRace(GRaceDatabase* pThis) { return pThis->mStartupRace; }
 };

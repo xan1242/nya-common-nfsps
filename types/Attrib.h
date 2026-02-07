@@ -10,6 +10,8 @@ namespace Attrib {
 		void* mClass;
 		void* mLayout;
 		Vault* mSource;
+
+		static inline auto GetData = (void*(__thiscall*)(Collection*, uint32_t attributeKey, uint32_t index))0x52B5D0;
 	};
 
 	class Instance {
@@ -19,12 +21,14 @@ namespace Attrib {
 		uint32_t mMsgPort;
 		uint32_t mFlags;
 
+		Instance() {}
+
 		Instance(const Collection* collection, uint32_t msgPort) {
 			((Instance*(__thiscall*)(Instance*, const Collection*, uint32_t))0x52AA00)(this, collection, msgPort);
 		}
-		~Instance() {
-			((void(__thiscall*)(Instance*))0x5301F0)(this);
-		}
+		//~Instance() {
+		//	((void(__thiscall*)(Instance*))0x5301F0)(this);
+		//}
 
 		static inline auto GetAttributePointer = (void*(__thiscall*)(Instance*, uint32_t attributeKey, uint32_t index))0x52B950;
 	};

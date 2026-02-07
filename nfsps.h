@@ -1,6 +1,10 @@
 #include <d3d9.h>
 
-enum CarRenderUsage : uint32_t {
+struct UCrc32 {
+	uint32_t mCRC;
+};
+
+enum CarRenderUsage {
 	CarRenderUsage_Player,
 	CarRenderUsage_RemotePlayer,
 	CarRenderUsage_AIRacer,
@@ -12,11 +16,21 @@ enum CarRenderUsage : uint32_t {
 	CarRenderUsage_Invalid,
 };
 
-enum BLUEPRINT_NUMBER : uint32_t {
+enum BLUEPRINT_NUMBER {
 	BLUEPRINT1,
 	BLUEPRINT2,
 	BLUEPRINT3,
 	BLUEPRINT_MAX,
+};
+
+enum BluePrintType {
+	BLUEPRINT_GRIP = 0,
+	BLUEPRINT_DRIFT = 1,
+	BLUEPRINT_DRAG = 2,
+	BLUEPRINT_SPEED_CHALLENGE = 3,
+	BLUEPRINT_FIRST = 0,
+	BLUEPRINT_LAST = 3,
+	BLUEPRINT_NUM = 4,
 };
 
 typedef uint32_t HSIMABLE__;
@@ -31,7 +45,9 @@ namespace Hermes {
 #include "types/eastl.h"
 #include "types/bNode.h"
 #include "types/UCOM.h"
+#include "types/ListableSet.h"
 #include "types/UMath.h"
+#include "types/cFEng.h"
 #include "types/Attrib.h"
 #include "types/Physics.h"
 #include "types/VinylSystem.h"
@@ -44,8 +60,17 @@ namespace Hermes {
 #include "types/TrackInfo.h"
 #include "types/IAttachable.h"
 #include "types/ISimable.h"
+#include "types/IVehicle.h"
+#include "types/IPlayer.h"
+#include "types/ITransmission.h"
+#include "types/IEngine.h"
+#include "types/IInput.h"
+#include "types/IRigidBody.h"
+#include "types/IRBVehicle.h"
 #include "types/IVehicleCache.h"
+#include "types/IHumanAI.h"
 #include "types/ISelectionSet.h"
+#include "types/INIS.h"
 #include "types/DriftScoring.h"
 #include "types/GTrigger.h"
 #include "types/GRace.h"
@@ -54,6 +79,14 @@ namespace Hermes {
 #include "types/GRaceStatus.h"
 #include "types/RaceParameters.h"
 #include "types/GProStreetGame.h"
+#include "types/PVehicle.h"
+#include "types/Camera.h"
+#include "types/eView.h"
+
+class DALPauseStates {
+public:
+	static inline auto& mPauseRequest = *(uint32_t*)0xAB0EDC;
+};
 
 class RaceStarter {
 public:
@@ -81,6 +114,11 @@ auto& SkipFEDriftAssistLevel = *(int*)0xA9D9D8;
 auto& SkipFERacelineAssistLevel = *(int*)0xA9D9DC;
 auto& SkipFEBrakingAssistLevel = *(int*)0xA9D9E0;
 
+auto bInitTicker = (void(*)(float))0x430F30;
+
 auto& SkipNISs = *(bool*)0xBFBC28;
+
+auto& GameWindow = *(HWND*)0xAC6ED8;
+auto& GameD3DDevice = *(IDirect3DDevice9***)0xAC6ED4;
 
 #include "nfspshooks.h"
