@@ -47,6 +47,7 @@ namespace Hermes {
 #include "types/UCOM.h"
 #include "types/ListableSet.h"
 #include "types/UMath.h"
+#include "types/SimSystem.h"
 #include "types/cFEng.h"
 #include "types/Attrib.h"
 #include "types/Physics.h"
@@ -116,9 +117,23 @@ auto& SkipFEBrakingAssistLevel = *(int*)0xA9D9E0;
 
 auto bInitTicker = (void(*)(float))0x430F30;
 
+auto LZDecompress = (uint32_t(*)(uint8_t* pSrc, uint8_t* pDst))0x6CFDF0;
+auto HUFF_encode = (uint32_t(*)(void *compresseddata, const void *source, uint32_t sourcesize))0x6CFBB0;
+uint32_t HUFFCompress(uint8_t *pSrc, uint32_t Size, uint8_t *pDest) {
+	auto dest = (uintptr_t)pDest;
+	*(uint32_t*)(dest) = 0x46465548;
+	*(uint8_t*)(dest + 4) = 1;
+	*(uint8_t*)(dest + 5) = 16;
+	*(uint16_t*)(dest + 6) = 0;
+	*(uint32_t*)(dest + 8) = Size;
+	auto size = HUFF_encode((void*)(dest + 0x10), pSrc, Size);
+	*(uint32_t*)(dest + 0xC) = size;
+	return size;
+}
+
 auto& SkipNISs = *(bool*)0xBFBC28;
 
 auto& GameWindow = *(HWND*)0xAC6ED8;
-auto& GameD3DDevice = *(IDirect3DDevice9***)0xAC6ED4;
+auto& GameD3DDevice = *(IDirect3DDevice9**)0xAC6ED4;
 
 #include "nfspshooks.h"
