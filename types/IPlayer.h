@@ -15,22 +15,22 @@ class IPlayer : public UCOM::IUnknown {
 public:
 	static inline uint32_t IHandle = 0x4CD350;
 
-	virtual ISimable *GetSimable();
+	virtual ISimable* GetSimable();
 	virtual bool IsLocal();
-	virtual const UMath::Vector3 *GetPosition();
+	virtual const UMath::Vector3* GetPosition();
 	virtual bool SetPosition(const UMath::Vector3 *);
-	virtual PlayerSettings *GetSettings();
+	virtual PlayerSettings* GetSettings();
 	virtual void SetSettings(int);
 	virtual int GetSettingsIndex();
-	virtual IHud *GetHud();
+	virtual IHud* GetHud();
 	virtual void ResetHudType();
 	virtual void ReleaseHud();
 	virtual void SetRenderPort(int);
 	virtual int GetRenderPort();
 	virtual void SetControllerPort(int);
 	virtual int GetControllerPort();
-	virtual IFeedback *GetFFB();
-	virtual ISteeringWheel *GetSteeringDevice();
+	virtual IFeedback* GetFFB();
+	virtual ISteeringWheel* GetSteeringDevice();
 	virtual bool InGameBreaker();
 	virtual bool CanRechargeNOS();
 	virtual void ResetGameBreaker(bool);
