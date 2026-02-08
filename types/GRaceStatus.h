@@ -4,9 +4,19 @@ class GCharacter;
 class GElapsedCallback;
 
 class GTimer {
+public:
 	float mStartTime;
 	float mTotalTime;
 	bool mRunning;
+
+	float GetTime() {
+		if (mRunning) {
+			return (Sim::GetTime() - mStartTime) + mTotalTime;
+		}
+		else {
+			return mTotalTime;
+		}
+	}
 };
 static_assert(sizeof(GTimer) == 0xC);
 
@@ -56,6 +66,118 @@ public:
 	virtual void _vf0();
 };
 static_assert(sizeof(Timeline) == 0x10);
+
+class GIOpponent : public UCOM::IUnknown {
+public:
+	enum Flags {
+		kFlag_LowResolution = 0x2,
+	};
+
+	enum OpponentStatus {
+		kStatus_Free = 0,
+		kStatus_Joining = 1,
+		kStatus_Hub = 2,
+		kStatus_Racing = 3,
+		kStatus_Disconnected = 4,
+		kStatus_Clean = 5,
+	};
+
+	enum DamageSeverity {
+		kDamageSeverity_None = 0,
+		kDamageSeverity_Cosmetic = 1,
+		kDamageSeverity_1 = 2,
+		kDamageSeverity_2 = 3,
+		kDamageSeverity_Totalled = 4,
+	};
+
+	enum PerformanceLevel {
+		kPerformanceLevel_Min = 0,
+		kPerformanceLevel_Current = 1,
+		kPerformanceLevel_Max = 2,
+	};
+
+	virtual unsigned int Id();
+	virtual void Prepare(GIOpponent::Flags);
+	virtual void Cleanup();
+	virtual void Disconnect();
+	virtual void Destroy();
+	virtual const char *GetOpponentName();
+	virtual GIOpponent::OpponentStatus GetStatus();
+	virtual void EnterHub();
+	virtual void EnterRace();
+	virtual ISimable *GetSimable();
+	virtual unsigned int GetVehicleKey();
+	virtual float GetPerformanceLevel(GIOpponent::PerformanceLevel);
+	virtual void StoreDamageData();
+	virtual void RestoreDamage();
+	virtual float GetDamageLevel();
+	virtual void SetDamageLevel(float);
+	virtual float GetInitialDamageLevel();
+	virtual void SetInitialDamageLevel(float);
+	virtual void RepairDamage();
+	virtual void RepairCareerDamage();
+	virtual void RepairEngineDamage();
+	virtual float GetDynamicTargetTime();
+	virtual void SetDynamicTargetTime(float);
+	virtual GIOpponent::DamageSeverity GetDamageSeverity();
+	virtual int GetGridNumber();
+	virtual void SetGridNumber(int);
+	virtual bool IsHidden();
+	virtual void SetHidden(bool);
+	virtual void RequestDamageStoreAndRepair();
+	virtual void RequestDamageRepair();
+	virtual int GetIndex();
+};
+
+class GOpponent : public GIOpponent, UCOM::Object {
+public:
+	HSIMABLE__* mHSimable;
+	GIOpponent::OpponentStatus mStatus;
+	char mOpponentName[32];
+	unsigned int mId;
+	int mIndex;
+	float mDamageLevel;
+	float mInitialDamageLevel;
+	float mDynamicTargetTime;
+	int mGridNum;
+	bool mHidden;
+	void* mDamageRestoreData;
+	unsigned int mDamageRestoreBufferSize;
+	int mDamageRequestPending;
+
+	virtual unsigned int Id();
+	virtual void Prepare(GIOpponent::Flags);
+	virtual void Cleanup();
+	virtual void Disconnect();
+	virtual void Destroy();
+	virtual const char* GetOpponentName();
+	virtual GIOpponent::OpponentStatus GetStatus();
+	virtual void EnterHub();
+	virtual void EnterRace();
+	virtual ISimable* GetSimable();
+	virtual unsigned int GetVehicleKey();
+	virtual float GetPerformanceLevel(GIOpponent::PerformanceLevel);
+	virtual void StoreDamageData();
+	virtual void RestoreDamage();
+	virtual float GetDamageLevel();
+	virtual void SetDamageLevel(float);
+	virtual float GetInitialDamageLevel();
+	virtual void SetInitialDamageLevel(float);
+	virtual void RepairDamage();
+	virtual void RepairCareerDamage();
+	virtual void RepairEngineDamage();
+	virtual float GetDynamicTargetTime();
+	virtual void SetDynamicTargetTime(float);
+	virtual GIOpponent::DamageSeverity GetDamageSeverity();
+	virtual int GetGridNumber();
+	virtual void SetGridNumber(int);
+	virtual bool IsHidden();
+	virtual void SetHidden(bool);
+	virtual void RequestDamageStoreAndRepair();
+	virtual void RequestDamageRepair();
+	virtual int GetIndex();
+	virtual void SetSimable(ISimable*);
+};
 
 class GRacerInfo : public GElapsedCallback {
 public:
@@ -230,6 +352,7 @@ public:
 	FinishReason (*mNoFinishFuncs[4])(GRacerInfo*, FinishReason);
 };
 static_assert(sizeof(GRacerInfo) == 0x594);
+static_assert(offsetof(GRacerInfo, mOpponent) == 0xC);
 static_assert(offsetof(GRacerInfo, mSectorTimer) == 0x424);
 static_assert(offsetof(GRacerInfo, mTimers) == 0x430);
 static_assert(offsetof(GRacerInfo, mSavedPosition) == 0x464);
@@ -377,3 +500,5 @@ public:
 };
 static_assert(sizeof(GRaceStatus) == 0x45D0);
 static_assert(offsetof(GRaceStatus, mRacerInfo) == 0x20);
+
+auto GetOpponentDamage = (float(*)(ISimable*))0x674F30;

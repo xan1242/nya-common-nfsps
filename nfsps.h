@@ -56,6 +56,7 @@ namespace Hermes {
 #include "types/RideInfo.h"
 #include "types/FEPlayerCarDB.h"
 #include "types/FeGarageMain.h"
+#include "types/PlayerSettings.h"
 #include "types/UserProfile.h"
 #include "types/GameFlowManager.h"
 #include "types/TrackInfo.h"
@@ -72,6 +73,8 @@ namespace Hermes {
 #include "types/IHumanAI.h"
 #include "types/ISelectionSet.h"
 #include "types/INIS.h"
+#include "types/IDamageable.h"
+#include "types/IDamageableVehicle.h"
 #include "types/DriftScoring.h"
 #include "types/GTrigger.h"
 #include "types/GRace.h"
@@ -83,7 +86,6 @@ namespace Hermes {
 #include "types/PVehicle.h"
 #include "types/Camera.h"
 #include "types/eView.h"
-#include "types/PlayerSettings.h"
 
 class DALPauseStates {
 public:
@@ -115,6 +117,8 @@ auto& SkipFEAntiLockBrakesLevel = *(int*)0xA9D9D4;
 auto& SkipFEDriftAssistLevel = *(int*)0xA9D9D8;
 auto& SkipFERacelineAssistLevel = *(int*)0xA9D9DC;
 auto& SkipFEBrakingAssistLevel = *(int*)0xA9D9E0;
+
+auto& Tweak_TotalledDamage = *(float*)0xA5C5B4;
 
 auto bInitTicker = (void(*)(float))0x430F30;
 

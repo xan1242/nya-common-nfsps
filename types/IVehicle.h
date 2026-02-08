@@ -71,6 +71,16 @@ namespace VehicleFX {
 		LIGHT_REVERSE = 0xC0,
 		LIGHT_BRAKELIGHTS = 0x38,
 	};
+
+	enum WindowFXID {
+		WINDOW_NONE = 0x0,
+		WINDOW_FRONT = 0x1,
+		WINDOW_LEFT_FRONT = 0x2,
+		WINDOW_LEFT_REAR = 0x4,
+		WINDOW_RIGHT_FRONT = 0x8,
+		WINDOW_RIGHT_REAR = 0x10,
+		WINDOW_REAR = 0x20,
+	};
 }
 
 enum DriverAidType {
