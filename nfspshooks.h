@@ -64,14 +64,18 @@ namespace NyaHooks {
 	}
 
 	namespace WorldServiceHook {
-		std::vector<void(*)()> aFunctions;
+		std::vector<void(*)()> aPreFunctions;
+		std::vector<void(*)()> aPostFunctions;
 
 		auto OrigFunction = (void(*)())nullptr;
 		void HookedFunction() {
-			for (auto& func : aFunctions) {
+			for (auto& func : aPreFunctions) {
 				func();
 			}
-			return OrigFunction();
+			OrigFunction();
+			for (auto& func : aPostFunctions) {
+				func();
+			}
 		}
 
 
@@ -132,7 +136,7 @@ namespace NyaHooks {
 
 		void Init() {
 			if (OrigFunction) return;
-			OrigFunction = (void(__thiscall*)(void*))NyaHookLib::PatchRelative(NyaHookLib::CALL, 0x67E3C3, &HookedFunction);
+			OrigFunction = (void(__thiscall*)(void*))NyaHookLib::PatchRelative(NyaHookLib::CALL, 0x6A7E83, &HookedFunction);
 		}
 	}
 

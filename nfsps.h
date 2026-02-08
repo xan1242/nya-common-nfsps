@@ -128,12 +128,12 @@ uint32_t HUFFCompress(uint8_t *pSrc, uint32_t Size, uint8_t *pDest) {
 	*(uint32_t*)(dest + 8) = Size;
 	auto size = HUFF_encode((void*)(dest + 0x10), pSrc, Size);
 	*(uint32_t*)(dest + 0xC) = size;
-	return size;
+	return size + 16;
 }
 
 auto& SkipNISs = *(bool*)0xBFBC28;
 
 auto& GameWindow = *(HWND*)0xAC6ED8;
-auto& GameD3DDevice = *(IDirect3DDevice9**)0xAC6ED4;
+auto& GameD3DDevice = *(IDirect3DDevice9***)0xAC6ED4;
 
 #include "nfspshooks.h"

@@ -167,7 +167,7 @@ public:
 	virtual const char* GetCacheName();
 	virtual bool GetDynamicData(const EventSequencer::System *, EventSys::DynamicData *);
 	virtual bool IsDriverAidOn(DriverAidType);
-	virtual void SetDriverAidLevel(DriverAidType, int, bool);
+	virtual void SetDriverAidLevel(DriverAidType driverAidType, int driverAidLevel, bool persistChanges);
 	virtual int GetDriverAidLevel(DriverAidType);
 	virtual int GetDriverAidMaxLevel(DriverAidType);
 	virtual void RestoreDriverAidLevels_All();
