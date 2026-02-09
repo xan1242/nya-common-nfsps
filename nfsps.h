@@ -99,6 +99,7 @@ public:
 
 auto& SkipFE = *(bool*)0xBFBC08;
 auto& SkipFEForever = *(bool*)0xBFBC0C;
+auto& SkipFEPlayerBluePrintType = *(int*)0xBFBC10;
 auto& SkipFENumAICars = *(int*)0xBFBC18;
 auto& SkipFEBootFlow = *(bool*)0xBFBC41;
 auto& SkipFETrackNumber = *(int*)0xA9D974;
