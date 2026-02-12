@@ -1,17 +1,57 @@
 namespace Attrib {
-	class Class;
 	class Vault;
+	class Definition;
+	class ClassPrivate;
+
+	class Class {
+	public:
+		unsigned int mKey;
+		ClassPrivate* mPrivates;
+	};
+
+	class ClassPrivate : public Class {
+	public:
+		uint8_t _8[0x18];
+		uint16_t mLayoutSize;
+		uint16_t mNumDefinitions;
+		Definition* mDefinitions;
+		Vault* mSource;
+		void* mStaticData;
+	};
+
+	class Array {
+	public:
+		uint16_t mAlloc;
+		uint16_t mCount;
+		uint16_t mSize;
+		uint16_t mEncodedTypePad;
+	};
+
+	class Node {
+	public:
+		uint32_t mKey;
+		union {
+			void* mPtr;
+			Attrib::Array* mArray;
+			uint32_t mValue;
+			uint32_t mOffset;
+		};
+		uint16_t mTypeIndex;
+		uint8_t mMax;
+		uint8_t mFlags;
+	};
 
 	class Collection {
 	public:
 		uint8_t _mTable[0xC];
 		Collection* mParent;
 		uint32_t mKey;
-		void* mClass;
+		Class* mClass;
 		void* mLayout;
 		Vault* mSource;
 
 		static inline auto GetData = (void*(__thiscall*)(Collection*, uint32_t attributeKey, uint32_t index))0x52B5D0;
+		static inline auto GetNode = (Attrib::Node*(__thiscall*)(Collection*, uint32_t attributeKey, const Attrib::Collection **container))0x52B530;
 	};
 
 	class Instance {
