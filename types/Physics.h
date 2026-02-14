@@ -80,20 +80,20 @@ namespace Physics {
 
 		class Performance {
 		public:
-			Physics::Info::AbsolutePerformanceStats absolutePerformanceStats;
-			Physics::Info::PerformanceLevels performanceLevels;
+			AbsolutePerformanceStats absolutePerformanceStats;
+			PerformanceLevels performanceLevels;
 			BluePrintType bluePrintType;
 		};
 
 		class CorrectedPerformance {
 		public:
-			Physics::Info::AbsolutePerformanceStats absolutePerformanceStats;
-			Physics::Info::PerformanceLevels performanceLevels;
-			Physics::Info::Performance stockMeasuredPerformance;
-			Physics::Info::Performance highendMeasuredPerformance;
+			AbsolutePerformanceStats absolutePerformanceStats;
+			PerformanceLevels performanceLevels;
+			Performance stockMeasuredPerformance;
+			Performance highendMeasuredPerformance;
 			BluePrintType bluePrintType;
-			Physics::Info::Performance stockFastPerformance;
-			Physics::Info::Performance highendFastPerformance;
+			Performance stockFastPerformance;
+			Performance highendFastPerformance;
 
 			virtual void Compute(const Attrib::Instance*, const BluePrintType);
 			virtual void Recompute(const Attrib::Instance*);
