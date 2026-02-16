@@ -15,6 +15,7 @@ public:
 	virtual void SetCollisionCOG(const UMath::Vector3 *);
 	virtual void EnableObjectCollisions(bool);
 	virtual bool AreObjectCollisionsEnabled();
+	virtual void EnableVehicleCollisions(bool);
 	virtual void SetInvulnerability(eInvulnerablitiy, float);
 	virtual eInvulnerablitiy GetInvulnerability();
 	virtual void SetReactions(DriverClass, const Attrib::Instance *);

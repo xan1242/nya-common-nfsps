@@ -86,6 +86,7 @@ namespace Hermes {
 #include "types/PVehicle.h"
 #include "types/Camera.h"
 #include "types/eView.h"
+#include "types/Event.h"
 
 class DALPauseStates {
 public:
